@@ -50,7 +50,7 @@
       ansible.builtin.systemd_service:
        daemon_reload: true
       
-    - name: start and enable ctalaogue server
+    - name: start and enable ctalaogue 
       ansible.become.service:
       name: catalogue 
       state: started
