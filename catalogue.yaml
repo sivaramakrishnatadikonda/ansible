@@ -46,9 +46,11 @@
         src: catalogue.service
         dest: /etc/systemd/system/catalogue.service
 
+
     - name: systemctl deamon reload
       ansible.builtin.systemd_service:
        daemon_reload: true
+
       
     - name: start and enable catalogue
       ansible.builtin.service:
@@ -56,23 +58,28 @@
       state: started
       enabled: yes
 
+
     - name: copy mongodb repo
       ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
+
 
     - name: install mongodb 
       ansible.builtin.dnf:
       name: mongodb-mongosh
       state: present
 
+
     - name: check products loaded or not
       ansible.builtin.command: mongosh --host mongodb.tadikondadevops.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
       register: catalogue_output
 
+
     - name: print catalogue output
       ansible.builtin.debug:
       msg: "{{ catalogue_output }}"
+      
 
     - name: load products
       ansible.builtin.shell: mongosh --host mongodb.tadikondadevops.site < /app/db/master-data.js
