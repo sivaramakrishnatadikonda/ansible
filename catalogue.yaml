@@ -53,7 +53,7 @@
     - name: start and enable ctalaogue server
       ansible.become.service:
         name: catalogue 
-        state: installed
+        state: started
         enabled: yes
 
     - name: copy mongodb repo
